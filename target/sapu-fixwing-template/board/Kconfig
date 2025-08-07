@@ -1,0 +1,57 @@
+menu "Hardware Drivers Config"
+
+config SOC_STM32H743II
+    bool
+    select SOC_SERIES_STM32H7
+    select RT_USING_COMPONENTS_INIT
+    select RT_USING_USER_MAIN
+    default y
+
+menu "Onboard Peripheral Drivers"
+
+endmenu
+
+menu "On-chip Peripheral Drivers"
+    config ADD_ALL_STM32_HAL
+        bool "add all stm32 hal library"
+        default y
+        
+    config BSP_USING_GPIO
+        bool "Enable GPIO"
+        select RT_USING_PIN
+        default y
+
+    config BSP_USING_UART
+        bool "Enable UART"
+        default y
+        select RT_USING_SERIAL
+
+    config BSP_USING_I2C1
+        bool "Enable software i2c1 PA.0 PA.1"
+        default y
+    
+    config BSP_USING_SPI1
+        bool "Enable SPI1"
+            default y
+
+    config BSP_USING_SPI3
+        bool "Enable SPI3"
+            default y
+
+    config BSP_USING_PWM
+        bool "Enable PWM"
+            default y
+
+    config BSP_USING_FDCAN1
+        bool "Enable FDCAN1"
+            default y
+
+    source "$(LIB_DIR)/HAL_Drivers/drivers/Kconfig"
+
+endmenu
+
+menu "Board extended module Drivers"
+
+endmenu
+
+endmenu

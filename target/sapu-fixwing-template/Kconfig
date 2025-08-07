@@ -1,0 +1,13 @@
+mainmenu "RT-Thread Configuration"
+
+BSP_DIR := ../../rt-thread/bsp
+
+RTT_DIR := ../../rt-thread
+LIB_DIR := ../../rt-thread/bsp/stm32/libraries
+PKGS_DIR := packages
+
+source "$(RTT_DIR)/Kconfig"
+osource "$PKGS_DIR/Kconfig"
+rsource "$(LIB_DIR)/Kconfig"
+rsource "board/Kconfig"
+

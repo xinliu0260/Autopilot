@@ -1,0 +1,53 @@
+import os
+import sys
+import rtconfig
+
+FA_ROOT = os.path.abspath('../../')
+RTT_ROOT = os.path.join(FA_ROOT, 'rt-thread')
+PROJECT_ROOT = os.path.abspath('./')
+
+# 将rt-thread/tools加入 环境变量-路径中,以便找到building.py
+sys.path = sys.path + [os.path.join(RTT_ROOT, 'tools')]
+try:
+    from building import *
+except:
+    print('Cannot found RT-Thread root directory, please check RTT_ROOT')
+    print(RTT_ROOT)
+    exit(-1)
+
+TARGET = rtconfig.TARGET_NAME + rtconfig.TARGET_EXT
+
+DefaultEnvironment(tools=[])
+env = Environment(tools = ['mingw'],
+    AS = rtconfig.AS, ASFLAGS = rtconfig.AFLAGS,
+    CC = rtconfig.CC, CFLAGS = rtconfig.CFLAGS,
+    AR = rtconfig.AR, ARFLAGS = '-rc',
+    CXX = rtconfig.CXX, CXXFLAGS = rtconfig.CXXFLAGS,
+    LINK = rtconfig.LINK, LINKFLAGS = rtconfig.LFLAGS)
+env.PrependENVPath('PATH', rtconfig.EXEC_PATH)
+
+if rtconfig.PLATFORM in ['iccarm']:
+    env.Replace(CCCOM = ['$CC $CFLAGS $CPPFLAGS $_CPPDEFFLAGS $_CPPINCFLAGS -o $TARGET $SOURCES'])
+    env.Replace(ARFLAGS = [''])
+    env.Replace(LINKCOM = env["LINKCOM"] + ' --map rt-thread.map')
+
+Export('RTT_ROOT')
+Export('rtconfig')
+
+SDK_LIB = os.path.join(RTT_ROOT,'bsp/stm32/libraries/')
+Export('SDK_LIB')
+
+# prepare building environment
+objs = PrepareBuilding(env, RTT_ROOT, has_libcpu=False)
+
+stm32_library = 'STM32H7xx_HAL'
+rtconfig.BSP_LIBRARY_TYPE = stm32_library
+
+# include drivers
+objs.extend(SConscript(os.path.join(SDK_LIB, stm32_library, 'SConscript')))
+
+# include libraries
+objs.extend(SConscript(os.path.join(SDK_LIB, 'HAL_Drivers', 'SConscript')))
+
+# make a building
+DoBuilding(TARGET, objs)

@@ -1,0 +1,10 @@
+{
+    "python.analysis.extraPaths": ["${workspaceFolder}/rt-thread/tools"],
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/build",
+        "--all-scopes-completion",
+        "--completion-style=detailed",
+        "--header-insertion=never",
+        "--query-driver=C:/EmbedDevTool/ARM-GNU-Toolchains/arm-none-eabi/bin/arm-none-eabi-*"
+    ]
+}
