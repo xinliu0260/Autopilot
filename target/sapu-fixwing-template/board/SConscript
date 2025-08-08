@@ -16,6 +16,11 @@ src += Glob('CubeMX_Config/Core/Src/main.c')
 path = [cwd]
 path += [cwd + '/CubeMX_Config/Core/Inc']
 
+# Autopilt root folder
+path += [cwd + '/../../../']
+# Autopilt root include folder
+path += [cwd + '/../../../include']
+
 startup_path_prefix = SDK_LIB
 
 if rtconfig.PLATFORM in ['gcc']:

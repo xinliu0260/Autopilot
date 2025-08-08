@@ -1,0 +1,26 @@
+from building import *
+
+DRIVERS = [
+    'airspeed/*.c'
+    'barometer/*.c',
+    'gps/*.c',
+    'imu/*.c',
+    'mag/*.c',
+]
+
+DRIVERS_CPPPATH = []
+
+cwd = GetCurrentDir()
+
+src = []
+for f in DRIVERS:
+    src += Glob(f)
+
+inc = []
+for d in DRIVERS_CPPPATH:
+    inc += [cwd + '/' + d]
+
+group = DefineGroup('extDriver', src, depend = [''], CPPPATH = inc)
+
+Return('group')
+

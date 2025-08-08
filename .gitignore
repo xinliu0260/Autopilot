@@ -1,3 +1,8 @@
 build/
+model/
+module/
+protocol/
+lib/
+task/
 .env/
 .cache/

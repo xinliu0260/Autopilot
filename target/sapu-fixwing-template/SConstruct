@@ -2,8 +2,8 @@ import os
 import sys
 import rtconfig
 
-FA_ROOT = os.path.abspath('../../')
-RTT_ROOT = os.path.join(FA_ROOT, 'rt-thread')
+ROOT = os.path.abspath('../../')
+RTT_ROOT = os.path.join(ROOT, 'rt-thread')
 PROJECT_ROOT = os.path.abspath('./')
 
 # 将rt-thread/tools加入 环境变量-路径中,以便找到building.py
@@ -48,6 +48,18 @@ objs.extend(SConscript(os.path.join(SDK_LIB, stm32_library, 'SConscript')))
 
 # include libraries
 objs.extend(SConscript(os.path.join(SDK_LIB, 'HAL_Drivers', 'SConscript')))
+
+objs.extend(SConscript(os.path.join(ROOT,'extdev','SConscript')))
+
+objs.extend(SConscript(os.path.join(ROOT,'extdriver','SConscript')))
+
+objs.extend(SConscript(os.path.join(ROOT,'lib','SConscript')))
+
+objs.extend(SConscript(os.path.join(ROOT,'model','SConscript')))
+
+objs.extend(SConscript(os.path.join(ROOT,'module','SConscript')))
+
+objs.extend(SConscript(os.path.join(ROOT,'task','SConscript')))
 
 # make a building
 DoBuilding(TARGET, objs)

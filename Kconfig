@@ -1,0 +1,30 @@
+menu "Autopilot Config"
+    choice
+        prompt "Select Aircraft Model" 
+        default MODEL_SELECT_FIXWING
+
+        config MODEL_SELECT_FIXWING
+            bool "Aircraft Model select fixwing"
+
+
+        config MODEL_SELECT_MC
+            bool "Aircraft Model select multicopter"
+
+
+    endchoice  
+    choice
+        prompt "Select INS Model"  
+        default INS_SELECT_EXT_INS  
+
+        config INS_SELECT_CF_INS
+            bool "Complementary Filter"
+
+        config INS_SELECT_PX4_INS
+            bool "PX4 EKF"
+
+        config INS_SELECT_EXT_INS
+            bool "External INS"
+
+    endchoice  
+
+endmenu

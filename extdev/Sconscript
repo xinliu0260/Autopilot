@@ -1,0 +1,12 @@
+from building import *
+
+cwd = GetCurrentDir()
+src = Glob('*.c')
+CPPPATH = [cwd]
+
+# if GetDepend(['USE_DEV_ACCEL']):
+#     src = src + ['dev_accel.c']
+
+group = DefineGroup('extDeviceDrivers', src, depend = [], CPPPATH = CPPPATH)
+
+Return('group')

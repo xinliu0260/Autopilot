@@ -10,4 +10,5 @@ source "$(RTT_DIR)/Kconfig"
 osource "$PKGS_DIR/Kconfig"
 rsource "$(LIB_DIR)/Kconfig"
 rsource "board/Kconfig"
+rsource "../../Kconfig"
 

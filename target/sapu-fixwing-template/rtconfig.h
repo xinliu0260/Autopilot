@@ -126,6 +126,7 @@
 #define RT_USING_USER_MAIN
 #define RT_MAIN_THREAD_STACK_SIZE 2048
 #define RT_MAIN_THREAD_PRIORITY 19
+#define RT_USING_LEGACY
 #define RT_USING_MSH
 #define RT_USING_FINSH
 #define FINSH_USING_MSH
@@ -172,6 +173,9 @@
 
 #define RT_USING_DEVICE_IPC
 #define RT_UNAMED_PIPE_NUMBER 64
+#define RT_USING_SYSTEM_WORKQUEUE
+#define RT_SYSTEM_WORKQUEUE_STACKSIZE 2048
+#define RT_SYSTEM_WORKQUEUE_PRIORITY 23
 #define RT_USING_SERIAL
 #define RT_USING_SERIAL_V2
 #define RT_SERIAL_USING_DMA
@@ -235,6 +239,28 @@
 
 /* Utilities */
 
+#define RT_USING_ULOG
+#define ULOG_OUTPUT_LVL_D
+#define ULOG_OUTPUT_LVL 7
+#define ULOG_ASSERT_ENABLE
+#define ULOG_LINE_BUF_SIZE 128
+#define ULOG_USING_ASYNC_OUTPUT
+#define ULOG_ASYNC_OUTPUT_BUF_SIZE 2048
+#define ULOG_ASYNC_OUTPUT_BY_THREAD
+#define ULOG_ASYNC_OUTPUT_THREAD_STACK 4096
+#define ULOG_ASYNC_OUTPUT_THREAD_PRIORITY 30
+
+/* log format */
+
+#define ULOG_USING_COLOR
+#define ULOG_OUTPUT_TIME
+#define ULOG_OUTPUT_LEVEL
+#define ULOG_OUTPUT_TAG
+#define ULOG_OUTPUT_THREAD_NAME
+/* end of log format */
+#define ULOG_BACKEND_USING_CONSOLE
+#define ULOG_BACKEND_USING_FILE
+#define ULOG_USING_FILTER
 /* end of Utilities */
 
 /* Using USB legacy version */
@@ -321,6 +347,11 @@
 
 /* CMSIS: ARM Cortex-M Microcontroller Software Interface Standard */
 
+#define PKG_CMSIS_DSP_BASIC_MATH
+#define PKG_CMSIS_DSP_COMMON_TABLES
+#define PKG_CMSIS_DSP_FAST_MATH
+#define PKG_USING_CMSIS_DSP
+#define PKG_USING_CMSIS_DSP_LATEST_VERSION
 /* end of CMSIS: ARM Cortex-M Microcontroller Software Interface Standard */
 
 /* Micrium: Micrium software products porting for RT-Thread */
@@ -448,5 +479,11 @@
 /* Board extended module Drivers */
 
 /* end of Hardware Drivers Config */
+
+/* Autopilot Config */
+
+#define MODEL_SELECT_FIXWING
+#define INS_SELECT_EXT_INS
+/* end of Autopilot Config */
 
 #endif

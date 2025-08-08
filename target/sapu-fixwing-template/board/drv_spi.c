@@ -16,6 +16,7 @@
 #include <rtthread.h>
 #include <rtdevice.h>
 #include "board.h"
+#include "drv_gpio.h"
 #include "stm32h7xx_hal_spi.h"
 
 
@@ -462,7 +463,10 @@ void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
 
 int rt_hw_spi_init(void)
 {
-    return rt_hw_spi_bus_init();
+    int result = rt_hw_spi_bus_init();
+    rt_hw_spi_device_attach("spi1","spi1_dev",GET_PIN(C, 5));
+    rt_hw_spi_device_attach("spi3","spi3_dev",GET_PIN(A, 15));
+    return result;
 }
 INIT_BOARD_EXPORT(rt_hw_spi_init);
 
