@@ -1,0 +1,52 @@
+import os
+from building import *
+
+MODELS = []
+
+MODELS = [
+        'plant/multicopter',
+        'ins/cf_ins',
+        'fms/ms_fms_v2',
+        'control/mc_controller',
+    ]
+
+cwd = GetCurrentDir()
+objs = []
+if GetDepend(['MODEL_SELECT_FIXWING']):
+    MODELS = [
+        'plant/fixwing',
+        'fms/fw_fms',
+        'control/fw_controller',
+    ]
+elif GetDepend(['MODEL_SELECT_MC']):
+    MODELS = [
+        'plant/multicopter',
+        'fms/mc_fms',
+        'control/mc_controller',
+    ]
+else:
+    MODELS = []
+
+for d in MODELS:
+    path = os.path.join(cwd, d)
+    if os.path.isfile(os.path.join(path, 'SConscript')):
+        objs = objs + SConscript(os.path.join(d, 'SConscript'))
+    else:
+        print('Error: can not find SConscript in ' + path)
+        exit(0)
+
+if GetDepend(['INS_SELECT_CF_INS']):
+    INS = 'ins/cf_ins'
+elif GetDepend(['INS_SELECT_EXT_INS']):
+    INS = 'ins/external_ins'
+elif GetDepend(['INS_SELECT_PX4_INS']):
+    INS = 'ins/external_ins'
+else:
+    print('Error: no ins is selected')
+
+if INS != '':
+    path = os.path.join(cwd, INS)
+    if os.path.isfile(os.path.join(path, 'SConscript')):
+        objs = objs + SConscript(os.path.join(INS, 'SConscript'))
+
+Return('objs')
