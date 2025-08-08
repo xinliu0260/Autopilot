@@ -1,0 +1,31 @@
+from building import *
+
+cwd = GetCurrentDir()
+TASKS = [
+    'comm/*.c',
+    'logger/*.c',
+    'status/*.c',
+]
+
+if GetDepend(['MODEL_SELECT_FIXWING']):
+    TASKS+=['vehicle/fixwing/*.c']
+elif GetDepend(['MODEL_SELECT_MC']):
+    TASKS+=['vehicle/fixwing/*.c']
+
+
+TASKS_CPPPATH = [
+    'comm',
+    'logger',
+]
+src = []
+for f in TASKS:
+    src += Glob(f)
+
+inc = []
+for d in TASKS_CPPPATH:
+    inc += [cwd + '/' + d]
+
+group = DefineGroup('Applications', src, depend=[''], CPPPATH=inc)
+
+Return('group')
+
