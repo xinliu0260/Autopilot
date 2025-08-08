@@ -1,6 +1,5 @@
 build/
 model/
-module/
 task/
 .env/
 .cache/

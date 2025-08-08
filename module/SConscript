@@ -1,0 +1,69 @@
+from building import *
+
+cwd = GetCurrentDir()
+group = []
+FOLDER = [
+    'file_manager/*.c',
+    'log/*.c',
+    'toml/*.c'
+]
+src = []
+for f in FOLDER:
+    src += Glob(f)
+group = DefineGroup('Tool-Files', src, depend=[''], CPPPATH=[])
+
+group = []
+FOLDER = [
+    'filter/*.c',
+    'math/*.c',
+]
+src = []
+for f in FOLDER:
+    src += Glob(f)
+group = DefineGroup('Tool-Math', src, depend=[''], CPPPATH=[])
+
+group = []
+FOLDER = [
+    'sensor/*.c',
+    'ipc/*.c',
+    'pmu/*.c'
+]
+src = []
+for f in FOLDER:
+    src += Glob(f)
+group = DefineGroup('Sensor-Hub', src, depend=[''], CPPPATH=[])
+
+TOOL_PARAM = [
+    'calibration/*.c',
+    'param/*.c',
+]
+
+src = []
+for f in TOOL_PARAM:
+    src += Glob(f)
+obj = DefineGroup('Tool-Param', src, depend=[''], CPPPATH=[])
+group = group + obj
+
+
+MAVLINK = [
+    'mavproxy/*.c',
+]
+src = []
+for f in MAVLINK:
+    src += Glob(f)
+obj = DefineGroup('MAVLink', src, depend=[''], CPPPATH=[])
+group = group + obj
+
+
+group = []
+FOLDER = [
+    'console/*.c',
+    'sysio/*.c'
+]
+
+src = []
+for f in FOLDER:
+    src += Glob(f)
+group = DefineGroup('Tool-System-IO', src, depend=[''], CPPPATH=[])
+
+Return('group')
